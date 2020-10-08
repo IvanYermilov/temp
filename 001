@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class NewClass
+{    
+    public static void main(String args[])
+    {
+      Scanner in = new Scanner(System.in);
+        int a = in.nextInt();
+        int b = in.nextInt();
+        double c = in.nextDouble();
+        double d = in.nextDouble();
+        int e = Operation.sum(a, b);
+        double f = Operation.sum(c, d);
+        System.out.println(e);
+        System.out.println(f);
+    }     
+}   
+
+class Operation{
+    static int sum(int a, int b)
+    {
+        int c= a+b;
+        return c;
+    }
+    static double sum (double a, double b)
+    {
+        double c=a+b;
+        return c;
+    }
+}   
