@@ -1,0 +1,21 @@
+using System;
+
+namespace Test
+{
+    class Task
+    {
+        static void Main(string[] args)
+        {
+            sbyte a = -34,c;
+            char ch1, ch2, ch3;
+            a -= 1;
+            a = (sbyte)~a;
+            for (int b = 128; b>0; b/=2)
+            {
+                c= (sbyte)(b & a);
+                ch1= c>0 ? ch3= '1' : ch3 = '0';
+                Console.Write(ch1);
+            }
+        }
+    }
+}
