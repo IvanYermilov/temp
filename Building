@@ -1,0 +1,36 @@
+using System;
+
+namespace Test
+{
+    public class Building
+    {
+        public int Floors, Area, Occupants;
+        public double APOcalculation() 
+        {
+            double AreaPerOccupant = Area / Occupants;
+            return AreaPerOccupant;
+        }
+    }
+    class Task
+    {
+        static void Main(string[] args)
+        {
+            var house = new Building
+            {
+                Floors = 3,
+                Area = 2000,
+                Occupants = 5
+            };            
+            var office = new Building
+            {
+                Floors = 2,
+                Area = 4000,
+                Occupants = 15
+            };
+
+            Console.WriteLine(house.APOcalculation());
+            Console.WriteLine(office.APOcalculation());
+        }
+    }
+}
+
