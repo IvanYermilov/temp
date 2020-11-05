@@ -1,0 +1,65 @@
+using System;
+
+namespace Test
+{
+    class Numb
+    { 
+        int A, B;
+        public Numb(int a, int b) 
+        {
+            A = a;
+            B = b;
+        }
+        public void swap(ref int a, ref int b, out int c) 
+        {
+            c = a - b;
+            a += b;
+            b = Math.Abs(b - a);
+            a = Math.Abs(a - b);
+
+        }
+        public static void ObSwap(Numb obj1, Numb obj2)
+        {
+            Numb t1;
+            t1 = obj1;
+            obj1 = obj2;
+            obj2 = t1;
+            obj1.A -= 1;
+            obj1.Show();
+            obj2.Show();
+        }
+        public void Ops(Numb ob) 
+        {
+            ob.A += ob.B;
+            ob.B = Math.Abs(ob.B-ob.A);
+            ob.A = Math.Abs(ob.A-ob.B);
+        }
+        public void Show() 
+        {
+            Console.WriteLine(A+" "+B);
+        }
+    }
+    class Task
+    {
+        static void Main(string[] args)
+        {
+            int a = 3, b = 6, c = 18;
+            var ob1 = new Numb(2, 4);
+            var ob2 = new Numb(4, 8);
+            ob1.Show();
+            ob2.Show();
+            Numb.ObSwap(ob1, ob2);
+            ob1.Show();
+            ob2.Show();
+            ob1.Ops(ob1);
+            ob1.Show();
+            Console.WriteLine(a + " " + b);
+            ob1.swap(ref a, ref b, out c);
+            Console.WriteLine(c);
+            Console.WriteLine(a + " " + b);
+            ob1.swap(ref a, ref b, out c);
+            Console.WriteLine(c);
+            Console.WriteLine(a + " " + b);
+        }
+    }
+}
