@@ -1,0 +1,62 @@
+using System;
+
+class Array
+{
+    private int[] arr;
+    private int L;
+
+    public Array(int l)
+    {
+        L = l;
+        arr = new int[L];
+    }
+
+    public Array(Array ob): this (ob.arr.Length)
+    {
+        for (int i=0; i<ob.arr.Length; i++)
+        {
+            arr[i] = ob.arr[i] +1;
+        }
+    }
+
+    public void fill(int a) 
+    { 
+        for (int i = 0; i < arr.Length; i++)
+        {
+            arr[i] = a;
+            a++;
+        }
+    }
+    
+    public void print()
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            Console.Write($"{i}: {arr[i]}\t");
+        }
+
+        Console.WriteLine();
+    }
+
+    public static string Rev(string i)
+    {
+        if (i.Length == 1) return i[0].ToString();
+        return i[i.Length - 1]+ Rev(i.Remove(i.Length - 1));
+    }
+}
+
+class AccessDemo
+{
+    static void Main()
+    {
+        Array arr1 = new Array(10);
+        arr1.fill(1);
+        arr1.print();
+        Array arr2 = new Array(arr1);
+        arr2.print();
+        arr2.fill(10);
+        arr2.print();
+        Console.WriteLine(Array.Rev("gay"));
+        Console.ReadKey();
+    }
+}
