@@ -1,0 +1,97 @@
+using System;
+
+class Nybble
+{
+    private int L;
+
+    public Nybble()
+    {
+        L = 0x0;
+    }
+    public Nybble(int i)
+    {
+        L = i & 0xF;
+    }
+
+    public static Nybble operator+ (Nybble a, Nybble b)
+    {
+        Nybble c = new Nybble();
+        c.L = (a.L + b.L)&0xF;
+        return c;
+    } 
+    public static Nybble operator+ (Nybble a, int b)
+    {
+        Nybble c = new Nybble();
+        c.L = a.L + b;
+        c.L &= 0xF;
+        return c;
+    } 
+
+    public static Nybble operator++ (Nybble a)
+    {
+        a.L += 1;
+        a.L &= 0xF;
+        return a;
+    }
+    public static bool operator> (Nybble a, Nybble b)
+    {
+        if (a.L > b.L) return true;
+        return false;
+    }
+    public static bool operator< (Nybble a, Nybble b)
+    {
+        if (a.L < b.L) return true;
+        return false;
+    }
+    public static implicit operator int(Nybble a)
+    {
+        return a.L;
+    }    
+    public static implicit operator Nybble(int a)
+    {
+        return new Nybble(a);
+    }
+    //public static explicit operator int (Nybble a)
+    //{
+    //    return a.L;
+    //}
+
+
+    public void print()
+    {
+        Console.Write(L);
+    }
+}
+
+class AccessDemo
+{
+    static void Main()
+    {
+        int d=0;
+        Nybble a = new Nybble(10);
+        Nybble b = new Nybble(10);
+        Nybble c = new Nybble();
+        c = a + b;
+        c.print();
+        Console.WriteLine();
+        c = a + 2;
+        c.print();
+        Console.WriteLine();
+        d = (int)a + (int)b;
+        Console.WriteLine($"d = {d}");
+        a.print();
+        Console.WriteLine();
+        a = 20;
+        a.print();
+        Console.WriteLine();
+        Console.WriteLine(a);
+        if (a > b)
+        {
+            a.print();
+            Console.Write(" > ");
+            b.print();
+            Console.WriteLine();
+        }
+        Console.ReadKey();
+    }
+}
