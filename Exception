@@ -1,0 +1,95 @@
+using System;
+using System.Runtime.Serialization;
+public class Methods
+{
+    class RAE : Exception
+    {
+        public RAE() : base() { }
+        public RAE(string str) : base(str) { }
+        public RAE(string str, Exception inner) : base(str, inner) { }
+        public RAE(
+            System.Runtime.Serialization.SerializationInfo si,
+            System.Runtime.Serialization.StreamingContext sc) :
+            base(si, sc)
+        { }
+        //public override string ToString()
+        //{
+        //    return Message;
+        //}
+    }
+    class DivideByZeroException : Exception
+    {
+        public DivideByZeroException() : base() { }
+        public DivideByZeroException(string str) : base(str) { }
+        public DivideByZeroException(string str, Exception inner) : base(str, inner) { }
+        public DivideByZeroException(SerializationInfo si, StreamingContext sc) : base(si, sc) { }
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
+    public static void GenException(int[] nums, int[] gums, ref int[] res)
+    {
+        for (int i = 0; i < nums.Length; i++)
+        {
+            try
+            {
+                if (i >= gums.Length | i >= nums.Length)
+                {
+                    Exception gay = new Exception("Gay");
+                    throw new RAE("Нехер лезть, куда не просят", gay);}
+                if (gums[i] == 0) throw new DivideByZeroException("Нехер на 0 делить");
+                res[i] = nums[i] / gums[i];
+                Console.WriteLine("nums[{0}]/gums[{0}] = {1}", i, res[i]);
+            }
+            catch (DivideByZeroException exc)
+            {
+                Console.WriteLine(exc); 
+            }
+            catch (RAE exc)
+            {
+                //Console.WriteLine("hi");
+                Console.WriteLine(exc);
+            }
+
+        }
+
+    }
+}
+public class ExcDemol
+{
+    public static void Main()
+    {
+        int[] nums = {1, 2, 3, 4, 5};
+        int[] gums = {5, 0, 3};
+        int[] res = new int[3];
+            double a;
+        try
+        {
+            Methods.GenException(nums, gums,ref res);
+        }
+        finally
+        {
+            for(int i=0;i<res.Length;i++ )
+            {
+                Console.WriteLine(res[i]);
+            }
+        }
+            //Console.WriteLine("До генерирования исключения.");
+            //Methods.GenExeption(nums);
+            //for (int i = 0; i < nums.Length; i++)
+            //{
+            //    try
+            //    {
+            //        a = nums[i] / gums[i];
+            //        Console.WriteLine("nums[{0}]/gums[{0}] = {1}", i, a);
+
+            //    }
+            //    catch
+            //    {
+            //        Console.WriteLine("Ошибка!");
+            //    }
+            //}
+            //Console.WriteLine("После блока перехвата исключения.");
+    }
+}
