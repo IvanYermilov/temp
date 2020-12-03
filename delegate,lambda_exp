@@ -1,27 +1,92 @@
 using System;
+using System.Runtime.CompilerServices;
+using System.Xml.Schema;
 
 namespace Test
 {
-    delegate int DG(int a);
+    public delegate double dg();
+    public delegate int DG(int a);
+
+    public class MyEvent
+    {
+        public event dg Pos;
+
+        public void onEvent()
+        {
+            if (Pos != null) Console.WriteLine(Pos());
+        }
+    }
+
+    public class X
+    {
+        public X(int a)
+        {
+            px = a;
+        }
+
+        private int x;
+        public int px
+        {
+            get { return x;}
+            set { x = value; }
+        }
+        public double Meth()
+        {
+            return 3.35;
+            px+=1;
+        }
+
+        public void show()
+        {
+            Console.WriteLine(this.px);
+        }
+    }
+
     class Task
     {
+        public static double Meth()
+        {
+            Console.WriteLine("a is positive");
+            return 3.33;
+        }
         static void Main(string[] args)
         {
-            DG d = a => {
+            MyEvent ME = new MyEvent();
+            X x = new X();
+            ME.Pos += Meth;
+            ME.Pos += x.Meth;
+            int a = 0;
+            if (a > 0) ME.onEvent();
+            DG sam = a => {
                 a += 2;
                 a *= 2;
                 return a;
             };
-            int a = 0;
-            a = d(a);
-            Console.WriteLine(a);
-            d = a => a + 2;
-            a = d(a);
-            Console.WriteLine(a);
-            d = delegate (int a)
+            DG s = a => a + 2;
+            DG f = a =>
+            {
+                int res=1;
+                for (int i = 1; i <= a; i++)
+                {
+                    res *= i;
+                }
+                return res;
+            };
+            DG de = delegate (int a)
             {
                 return a + 2;
             };
+            DG d = sam;
+            a = d(a);
+            if (a > 0) ME.onEvent();
+            Console.WriteLine(a);
+            d = s;
+            a = d(a);
+            Console.WriteLine(a);
+            d = f;
+            a = d(a);
+            Console.WriteLine(a);
+            d = de;
             a = d(a);
             Console.WriteLine(a);
         }
