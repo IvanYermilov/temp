@@ -1,24 +1,29 @@
 using System;
 
 namespace Test
-{	
-	delegate int DG(int a);
-	class Task
+{
+    delegate int DG(int a);
+    class Task
     {
         static void Main(string[] args)
         {
-			DG d = a => {a+=2;
-			a*=2;
-			return a;};
-			int a = 0;
-			a=d(a);
-			Console.WriteLine(a);
-			d = delegate (int a) 
-			{
-				return a+2;
-			};
-			a=d(a);
-			Console.WriteLine(a);
+            DG d = a => {
+                a += 2;
+                a *= 2;
+                return a;
+            };
+            int a = 0;
+            a = d(a);
+            Console.WriteLine(a);
+            d = a => a + 2;
+            a = d(a);
+            Console.WriteLine(a);
+            d = delegate (int a)
+            {
+                return a + 2;
+            };
+            a = d(a);
+            Console.WriteLine(a);
         }
-	}
+    }
 }
