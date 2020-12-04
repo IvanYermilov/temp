@@ -1,0 +1,38 @@
+using System;
+using System.Runtime.CompilerServices;
+using System.Xml.Schema;
+
+namespace Test
+{
+    public class MyEventArgs:EventArgs
+    {
+        public char ch;
+    }
+
+    public class MyEvent
+    {
+        public event EventHandler<MyEventArgs> Pos;
+
+        public void onEvent(object source, char ch)
+        {
+            MyEventArgs MEA = new MyEventArgs();
+            MEA.ch = ch;
+            if (Pos != null) Pos(this, MEA);
+        }
+    }
+
+    class Task
+    {
+        static void Main(string[] args)
+        {
+            ConsoleKeyInfo ch;
+            MyEvent ME = new MyEvent();
+            ME.Pos += (Sender, Key) => Console.WriteLine($"Источник события {Sender}, а нажали клавишу {Key.ch}");
+            for (;;)
+            {
+                ch = Console.ReadKey();
+                ME.onEvent(ME, ch.KeyChar);
+            }
+        }
+    }
+}
