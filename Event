@@ -1,0 +1,101 @@
+using System;
+using System.Runtime.CompilerServices;
+using System.Xml.Schema;
+
+namespace Test
+{
+    public delegate void dg();
+    public delegate int DG(int a);
+
+    public class MyEvent
+    {
+        dg[] EventArr = new dg[3];
+        public event dg Pos
+        {
+            add
+            {
+                int i;
+                for (i = 0; i < EventArr.Length; i++)
+                {
+                    if (EventArr[i] == null)
+                    {
+                        EventArr[i] = value;
+                        break;
+                    }
+                }
+                if (i == 3) Console.WriteLine("Нету места");
+
+
+            }
+            remove
+            {
+                int i;
+                for (i = 0; i < EventArr.Length; i++)
+                
+                    if (EventArr[i] == value)
+                    {
+                        EventArr[i] = null;
+                        break;
+                    }
+                    if (i == 3) Console.WriteLine("Нет такого обработчика");
+                
+            }
+        }
+
+        public void onEvent()
+        {
+            for (int i = 0; i < EventArr.Length; i++)
+            if (EventArr[i] != null) EventArr[i]();
+        }
+    }
+
+    public class X
+    {
+     public void show()
+        {
+            Console.WriteLine("This is X class");
+        }
+    }
+    public class Y
+    {
+        public void show()
+        {
+            Console.WriteLine("This is Y class");
+        }
+    }
+    public class Z
+    {
+        public void show()
+        {
+            Console.WriteLine("This is Z class");
+        }
+    }
+    public class V
+    {
+        public void show()
+        {
+            Console.WriteLine("This is V class");
+        }
+    }
+
+    class Task
+    {
+        static void Main(string[] args)
+        {
+            MyEvent ME = new MyEvent();
+            X x = new X();
+            Y y = new Y();
+            Z z = new Z();
+            V v = new V();
+            ME.Pos += x.show;
+            ME.Pos += y.show;
+            ME.Pos += z.show;
+            ME.Pos += v.show;
+            ME.onEvent();
+            ME.Pos -= x.show;
+            ME.Pos += v.show;
+            ME.onEvent();
+            ME.Pos -= x.show;
+        }
+    }
+}
